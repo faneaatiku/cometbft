@@ -528,7 +528,9 @@ func (c *Client) BlockSearch(
 	page, perPage *int,
 	orderBy string,
 ) (*ctypes.ResultBlockSearch, error) {
-	return c.next.BlockSearch(ctx, query, page, perPage, orderBy)
+	perPageInt := validatePerPage(perPage)
+
+	return c.next.BlockSearch(ctx, query, page, &perPageInt, orderBy)
 }
 
 // Validators fetches and verifies validators.
